@@ -4,6 +4,34 @@ local validate = dofile(root .. "/tests/validate.lua")
 local provider = require("neotheme_packs")
 
 assert(validate.provider(provider))
+local expected = {
+	["catppuccin-latte"] = "light",
+	["catppuccin-frappe"] = "dark",
+	["catppuccin-macchiato"] = "dark",
+	["catppuccin-mocha"] = "dark",
+	["kanagawa-wave"] = "dark",
+	["kanagawa-dragon"] = "dark",
+	["kanagawa-lotus"] = "light",
+	["rose-pine"] = "dark",
+	["rose-pine-moon"] = "dark",
+	["rose-pine-dawn"] = "light",
+	["solarized-dark"] = "dark",
+	["solarized-light"] = "light",
+	["tokyonight-night"] = "dark",
+	["tokyonight-storm"] = "dark",
+	["tokyonight-moon"] = "dark",
+	["tokyonight-day"] = "light",
+}
+local actual = {}
+for _, pack in pairs(provider.packs) do
+	for name, theme in pairs(pack.themes) do
+		actual[name] = theme.background
+	end
+end
+assert(vim.deep_equal(expected, actual), "provider inventory and backgrounds must match all 16 variants")
+for _, family in ipairs({ "everforest", "nord", "gruvbox", "monokai" }) do
+	assert(provider.packs[family] == nil, "excluded family must remain absent: " .. family)
+end
 for family, runtime in pairs(provider.packs) do
 	local authoritative = require("neotheme_packs.families." .. family)
 	assert(validate.family(authoritative, family, root, os.getenv("NEOTHEME_PACK_UPSTREAM")))
