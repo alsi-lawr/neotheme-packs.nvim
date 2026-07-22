@@ -30,15 +30,10 @@ Installing the dependency alone does not add themes; `palette_packs` opts in. Se
 [Palette Providers](https://github.com/alsi-lawr/neotheme.nvim/wiki/Palette-Providers) for family
 selection and behaviour.
 
-Palette values come from pinned upstream revisions. Source hashes, licenses, and mapping notes are
-stored with each family. See
-[Palette Pack Maintenance](https://github.com/alsi-lawr/neotheme.nvim/wiki/Palette-Pack-Maintenance)
-for the data format and update process.
-
 ## Development
 
-Run `./tests/run.sh` and `stylua --check lua tests`. Family notes are under [`docs/`](docs/), and
-complete upstream license texts are under [`licenses/`](licenses/).
+Run `./tests/run.sh` and `stylua --check lua tests`. Complete upstream license texts are under
+[`licenses/`](licenses/).
 
 ## License
 
