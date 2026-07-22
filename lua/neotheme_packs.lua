@@ -1,4 +1,4 @@
-local families = {}
+local families = { "kanagawa" }
 local packs = {}
 
 for _, family in ipairs(families) do
