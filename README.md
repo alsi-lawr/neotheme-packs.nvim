@@ -1,8 +1,35 @@
 # neotheme-packs.nvim
 
-Local, opt-in curated palette data for [neotheme.nvim](https://github.com/alsi-lawr/neotheme.nvim).
-This repository is under preparation, has no remote, and has not been published. Repository
-creation, remote configuration, and publication remain separate human-authorised work.
+Opt-in curated palette data for [neotheme.nvim](https://github.com/alsi-lawr/neotheme.nvim).
+
+## Installation
+
+With [lazy.nvim](https://github.com/folke/lazy.nvim), install this repository as a dependency and
+explicitly select its provider. Installing the dependency alone does not change Neotheme's theme
+inventory.
+
+```lua
+{
+	"alsi-lawr/neotheme.nvim",
+	lazy = false,
+	priority = 1000,
+	dependencies = {
+		"alsi-lawr/neotheme-packs.nvim",
+	},
+	config = function()
+		require("neotheme").setup({
+			theme = "tokyonight-moon",
+			palette_packs = {
+				{ provider = "neotheme_packs", include = "*" },
+			},
+		})
+		vim.cmd.colorscheme("neotheme")
+	end,
+}
+```
+
+Replace `include = "*"` with an explicit family list such as
+`include = { "kanagawa", "solarized" }` to load only those packs.
 
 ## Inventory
 
@@ -72,3 +99,9 @@ NEOTHEME_PACK_UPSTREAM=/path/to/upstream-cache ./tests/run.sh
 
 The cache layout is `<root>/<family>/<recorded-source-path>`. A missing or changed byte fails
 validation before provenance is claimed.
+
+## License and attribution
+
+The repository code is MIT licensed; see [LICENSE](LICENSE). Complete pinned upstream license texts
+are retained under [`licenses/`](licenses/), and each family's provenance and mapping limitations
+are documented under [`docs/`](docs/).
