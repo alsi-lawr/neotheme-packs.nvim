@@ -1,12 +1,11 @@
 # neotheme-packs.nvim
 
-Opt-in curated palette data for [neotheme.nvim](https://github.com/alsi-lawr/neotheme.nvim).
+Opt-in Kanagawa, Rosé Pine, Solarized, Tokyo Night, and Catppuccin themes for
+[neotheme.nvim](https://github.com/alsi-lawr/neotheme.nvim).
 
 ## Installation
 
-With [lazy.nvim](https://github.com/folke/lazy.nvim), install this repository as a dependency and
-explicitly select its provider. Installing the dependency alone does not change Neotheme's theme
-inventory.
+With [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ```lua
 {
@@ -28,80 +27,29 @@ inventory.
 }
 ```
 
-Replace `include = "*"` with an explicit family list such as
-`include = { "kanagawa", "solarized" }` to load only those packs.
+Installing the dependency alone does not add themes; `palette_packs` opts in. See
+[Palette Providers](https://github.com/alsi-lawr/neotheme.nvim/wiki/Palette-Providers) for family
+selection and behaviour.
 
-## Inventory
+## Included themes
 
-The pack contains only the five requested families and 16 variants:
+- Kanagawa: Wave, Dragon, Lotus
+- Rosé Pine: Main, Moon, Dawn
+- Solarized: Dark, Light
+- Tokyo Night: Night, Storm, Moon, Day
+- Catppuccin: Latte, Frappé, Macchiato, Mocha
 
-- Kanagawa: Wave, Dragon, and Lotus.
-- Rosé Pine: Main, Moon, and Dawn.
-- Solarized: Dark and Light.
-- Tokyo Night: Night, Storm, Moon, and Day.
-- Catppuccin: Latte, Frappé, Macchiato, and Mocha.
+Palette values come from pinned upstream revisions. Source hashes, licenses, and mapping notes are
+stored with each family. See
+[Palette Pack Maintenance](https://github.com/alsi-lawr/neotheme.nvim/wiki/Palette-Pack-Maintenance)
+for the data format and update process.
 
-Everforest, Nord, Gruvbox, and Monokai are deliberately absent.
+## Development
 
-## Native data contract
+Run `./tests/run.sh` and `stylua --check lua tests`. Family notes are under [`docs/`](docs/), and
+complete upstream license texts are under [`licenses/`](licenses/).
 
-Each `lua/neotheme_packs/families/<family>.lua` file is the sole authority for that family. It is a
-strict, data-only native Lua module returning:
+## License
 
-- `schema = 1`, a matching family slug, upstream URL, immutable revision, and SPDX identifier;
-- `copyright_state = "provided"` with an exact non-empty notice, or
-  `"upstream-not-provided"` with an empty notice;
-- a repository-relative complete license path;
-- non-empty semantic compromises and pinned source records containing safe paths and lowercase
-  SHA-256 values;
-- keyed themes with exact `background`, `mode = "simplified"|"full"`, and a complete palette.
-
-Simplified palettes are the exact flat 24-field Neotheme schema. Full palettes contain all 59 roles
-in their seven exact categories. Values are `#RRGGBB` tokens. Family and theme names are lowercase
-ASCII slugs and theme names are globally unique.
-
-The hand-maintained `lua/neotheme_packs.lua` index requires each authoritative module and projects
-only `{ family, themes }` into runtime provider schema v1. Provenance does not leak into the strict
-runtime pack records. There is no compiler, TOML, Python, generated duplicate, or runtime parser;
-native Lua/Neovim is the only runtime mechanism.
-
-## Add or update a family
-
-1. Select an immutable upstream revision and cache the exact source and license bytes without
-   editing them.
-2. Record every source path and SHA-256 in one authoritative family module. Preserve the complete
-   pinned license, exact SPDX identifier, and exact notice; when upstream supplies no project
-   notice, record that absence instead of inventing a holder.
-3. Map only exact pinned colors. Choose Simplified for primitive palettes and Full when upstream
-   exposes directly representable semantics. Document every best-fit alias, transform fan-out, or
-   unrepresentable role without describing an approximation as an exact semantic assignment.
-4. Add the family slug to the small provider index and add exact expected variants/backgrounds to
-   `tests/pack.lua`.
-5. Run native validation and inspect the diff before committing the family as one coherent change.
-
-## Validation
-
-Validate schema, provider projection, collisions, licenses, copyright state, inventory, and palette
-completeness:
-
-```sh
-./tests/run.sh
-stylua --check lua tests
-git diff --check
-```
-
-Supply the cache root to additionally hash every pinned source byte and compare it with the
-authoritative records:
-
-```sh
-NEOTHEME_PACK_UPSTREAM=/path/to/upstream-cache ./tests/run.sh
-```
-
-The cache layout is `<root>/<family>/<recorded-source-path>`. A missing or changed byte fails
-validation before provenance is claimed.
-
-## License and attribution
-
-The repository code is MIT licensed; see [LICENSE](LICENSE). Complete pinned upstream license texts
-are retained under [`licenses/`](licenses/), and each family's provenance and mapping limitations
-are documented under [`docs/`](docs/).
+Repository code is MIT licensed; see [LICENSE](LICENSE). Upstream palettes retain their respective
+licenses under [`licenses/`](licenses/).
