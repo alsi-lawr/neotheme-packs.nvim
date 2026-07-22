@@ -1,6 +1,6 @@
 # neotheme-packs.nvim
 
-Opt-in Kanagawa, Rosé Pine, Solarized, Tokyo Night, and Catppuccin themes for
+Opt-in curated themes for
 [neotheme.nvim](https://github.com/alsi-lawr/neotheme.nvim).
 
 ## Installation
@@ -17,7 +17,6 @@ With [lazy.nvim](https://github.com/folke/lazy.nvim):
 	},
 	config = function()
 		require("neotheme").setup({
-			theme = "tokyonight-moon",
 			palette_packs = {
 				{ provider = "neotheme_packs", include = "*" },
 			},
@@ -30,14 +29,6 @@ With [lazy.nvim](https://github.com/folke/lazy.nvim):
 Installing the dependency alone does not add themes; `palette_packs` opts in. See
 [Palette Providers](https://github.com/alsi-lawr/neotheme.nvim/wiki/Palette-Providers) for family
 selection and behaviour.
-
-## Included themes
-
-- Kanagawa: Wave, Dragon, Lotus
-- Rosé Pine: Main, Moon, Dawn
-- Solarized: Dark, Light
-- Tokyo Night: Night, Storm, Moon, Day
-- Catppuccin: Latte, Frappé, Macchiato, Mocha
 
 Palette values come from pinned upstream revisions. Source hashes, licenses, and mapping notes are
 stored with each family. See
